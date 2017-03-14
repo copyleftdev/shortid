@@ -5,8 +5,8 @@ from .alphabet import Alphabet
 
 # Should change every year with VERSION
 # TODO: Automate it
-REDUCE_TIME = 1403265799803
-VERSION = 2
+REDUCE_TIME = 1489533827803
+VERSION = 3
 
 class ShortId:
 
