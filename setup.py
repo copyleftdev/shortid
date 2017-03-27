@@ -2,7 +2,7 @@
 
 from distutils.core import setup
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 setup(
     name='shortid',
@@ -14,5 +14,6 @@ setup(
     download_url='https://github.com/corpix/shortid/archive/{0}.tar.gz'.format(__version__),
     keywords = ['short', 'id', 'uuid', 'shortid', 'tinyid'],
     packages=['shortid'],
+    license='MIT',
     classifiers=[],
 )
