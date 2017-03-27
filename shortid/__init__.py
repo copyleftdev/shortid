@@ -3,18 +3,17 @@ import os
 from .encoder import Encoder
 from .alphabet import Alphabet
 
-# Should change every year with VERSION
-# TODO: Automate it
-REDUCE_TIME = 1489533827803
-VERSION = 3
-
 class ShortId:
 
     def __init__(self):
         self._counter = 0
         self._previous_delta = 0
-        self._encoder = Encoder()
-        self._alphabet = Alphabet()
+
+        self.reduce_delay = 86400
+        self.reduce_time = (int(time.time()) * 1000) - self.reduce_delay
+        self.version = 4
+        self.encoder = Encoder()
+        self.alphabet = Alphabet()
 
     def generate(self):
         delta = self._get_time_delta()
@@ -25,13 +24,25 @@ class ShortId:
             self._counter = 0
             self._previous_delta = delta
 
-        res = self._encoder.encode(self._alphabet.lookup, VERSION)
-        res = res + self._encoder.encode(self._alphabet.lookup, os.getpid())
+        res = self.encoder.encode(
+            self.alphabet.lookup,
+            self.version
+        )
+        res = res + self.encoder.encode(
+            self.alphabet.lookup,
+            os.getpid()
+        )
 
         if self._counter > 0:
-            res = res + self._encoder.encode(self._alphabet.lookup, self._counter)
+            res = res + self.encoder.encode(
+                self.alphabet.lookup,
+                self._counter
+            )
 
-        res = res + self._encoder.encode(self._alphabet.lookup, delta)
+        res = res + self.encoder.encode(
+            self.alphabet.lookup,
+            delta
+        )
 
         return res
 
@@ -39,4 +50,8 @@ class ShortId:
         return int(time.time() * 1000)
 
     def _get_time_delta(self):
-        return int(round((self._get_time() - REDUCE_TIME) * 0.01))
+        return int(
+            round(
+                (self._get_time() - self.reduce_time) * 0.01
+            )
+        )

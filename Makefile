@@ -3,7 +3,7 @@
 version           := $(shell                                        \
 			cat setup.py                                \
 			| grep '^__version__'                       \
-			| sed "s|__version__ = '\([0-9\.]\+\)'|\1|" \
+			| sed 's|__version__ = "\([0-9\.]\+\)"|\1|' \
 			)
 
 test_requirements := test/requiremets.txt
