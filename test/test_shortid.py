@@ -23,7 +23,7 @@ class TestShortId(unittest.TestCase):
         lengths = []
         for i in range(0, 50000):
             lengths.append(len(self.shortid.generate()))
-        self.assertEqual(max(lengths) < 12, True)
+        self.assertEqual(max(lengths) <= 12, True)
 
 
     def test_generate_max_length_new_instance(self):
